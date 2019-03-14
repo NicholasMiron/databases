@@ -5,6 +5,7 @@ module.exports = {
     get: function (req, res) {
       models.messages.get((err, results) => {
         if (err) throw err;
+        console.log('asdfasdfasfsdfsdfsdfsdf', results);
         res.json(results);
       });
     }, // a function which handles a get request for all messages
@@ -26,7 +27,8 @@ module.exports = {
       })
     },
     post: function (req, res) {
-      let params = [req.body.username];
+      let params = [req.query.username];
+      console.log(req.query.username);
       models.users.post(params, (err, results) => {
         if (err) throw err;
         res.sendStatus(201);

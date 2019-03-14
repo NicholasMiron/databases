@@ -1,4 +1,4 @@
--- DROP DATABASE IF EXISTS chat;
+DROP DATABASE IF EXISTS chat;
 -- CREATE DATABASE chat;
 
 -- USE chat;
@@ -58,7 +58,7 @@ CREATE TABLE messages (
 
 
 CREATE TABLE users (
-  id        int    NOT NULL AUTO_INCREMENT,
+  id int NOT NULL AUTO_INCREMENT,
   username  varchar(40)   NOT NULL,
   PRIMARY KEY (ID)
 );

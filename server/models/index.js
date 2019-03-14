@@ -3,14 +3,16 @@ var db = require('../db');
 module.exports = {
   messages: {
     get: function (callback) {
-      var queryStr = 'select messages.message_id, messages.message_text, messages.message_room, users.name, users.user_id from messages left outer join users on (messages.message_user = users.user_id) order by messages.message_id desc';
+      var queryStr = 'select messages.id, messages.text, messages.roomname, users.username, users.id from messages left outer join users on (messages.userid = users.id) order by messages.id desc';
+      
       db.query(queryStr, (err, results) => {
+        console.log(results);
         callback(err, results);
       });
     }, // a function which produces all the messages
     post: function (params, callback) {
       // a function which can be used to insert a message into the database
-      let queryStr = `insert into messages(message_text, message_user, message_room) value (${params[0]}, (select user_id from users where username = ${params[1]} limit 1), ${params[2]})`;
+      let queryStr = `insert into messages(text, userid, roomname) values ('${params[0]}', (select id from users where username = '${params[1]}' limit 1), '${params[2]}')`;
       db.query(queryStr, params, (err, results) => {
         callback(err,results);
       });
@@ -26,7 +28,7 @@ module.exports = {
       });
     }, // a function which produces all users
     post: function (params, callback) {
-      let queryStr = `insert into users(name) values (${params[0]})`;
+      let queryStr = `insert into users(username) values ('${params[0]}')`;
       db.query(queryStr, (err, res) => {
         callback(err, res);
       });
